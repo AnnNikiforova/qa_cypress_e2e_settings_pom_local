@@ -26,8 +26,10 @@ describe('Settings page', () => {
   });
 
   it('should provide an ability to update username', () => {
-    const timestamp = Date.now();
-    const newUsername = `user${timestamp}`.toLowerCase();
+    const newUsername = faker.internet.userName()
+    .replace(/[^A-Za-z0-9]/g, '')
+    .replace(/^[^A-Za-z]+/, '')
+    .toLowerCase();
 
     settingsPage.usernameInput.should('have.value', user.username);
 
@@ -51,8 +53,7 @@ describe('Settings page', () => {
   });
 
   it('should provide an ability to update an email', () => {
-     const timestamp = Date.now();
-    const newEmail = `test${timestamp}@mail.com`;
+    const newEmail = faker.internet.email().toLowerCase();
 
     settingsPage.clearAndTypeEmail(newEmail);
     settingsPage.clickUpdateSettingsBtn();
@@ -65,7 +66,7 @@ describe('Settings page', () => {
 
   it('should provide an ability to update password', () => {
      const timestamp = Date.now();
-    const newPassword = `NewPass${timestamp}!`;
+    const newPassword = faker.internet.password();
 
     settingsPage.clearAndTypePassword(newPassword);
     settingsPage.clickUpdateSettingsBtn();
