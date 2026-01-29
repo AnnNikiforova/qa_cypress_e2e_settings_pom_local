@@ -39,16 +39,15 @@ describe('Settings page', () => {
   }); 
 
   it('should provide an ability to update bio', () => {
-    const timestamp = Date.now();
-    const newUsername = `user${timestamp}`.toLowerCase();
+     const newBio = faker.lorem.sentence();
 
-    settingsPage.usernameInput.should('have.value', user.username);
-
-    settingsPage.clearAndTypeUsername(newUsername);
+    settingsPage.clearAndTypeBio(newBio);
     settingsPage.clickUpdateSettingsBtn();
 
-    cy.url().should('include', `/profile/${newUsername}`);
-    homePage.usernameLink.should('contain', newUsername);
+    cy.url().should('include', `/profile/${user.username}`);
+
+    settingsPage.visit();
+    settingsPage.assertBioValue(newBio);
   });
 
   it('should provide an ability to update an email', () => {
